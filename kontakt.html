@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kontakt | Paul Hoppe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* Modern Variables & Reset */
+    :root {
+      --primary: #9b5cf6;
+      --primary-hover: #8b5cf6;
+      --bg-light: #f8fafc;
+      --bg-dark: #121212;
+      --card-light: #ffffff;
+      --card-dark: #1e1e1e;
+      --text-light: #334155;
+      --text-dark: #f1f5f9;
+      --muted-light: #64748b;
+      --muted-dark: #94a3b8;
+      --nav-bg-light: rgba(255, 255, 255, 0.8);
+      --nav-bg-dark: rgba(18, 18, 18, 0.8);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 900px) {
+        :root {
+            --primary: #8b0000;
+            --primary-hover: #a52a2a;
+        }
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      --primary: #b8a5db;
+      --primary-hover: #c4b5e3;
+    }
+
+    @media (max-width: 900px) {
+        body.dark-mode {
+            --primary: #ff4d4d;
+            --primary-hover: #ff6666;
+        }
+    }
+
+    *{box-sizing:border-box}
+    
+    body{
+      margin:0;
+      font-family: 'Inter', sans-serif;
+      background:var(--bg-light);
+      color:var(--text-light);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:0;
+      line-height:1.6;
+      transition: var(--transition);
+    }
+
+    /* Navigationsleiste (Modern Glassmorphism) */
+    nav {
+        background-color: var(--nav-bg-light);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 15px 30px;
+        margin-bottom: 40px;
+        display: flex;
+        gap: 25px;
+        border-bottom: 2px solid var(--primary);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: var(--shadow-md);
+    }
+    
+    body.dark-mode nav {
+        background-color: var(--nav-bg-dark);
+    }
+
+    nav a {
+        text-decoration: none;
+        color: inherit;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 4px;
+        transition: var(--transition);
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--primary);
+        transition: width 0.3s ease;
+    }
+
+    nav a:hover::after, nav a.active::after {
+        width: 100%;
+    }
+
+    nav a:hover, nav a.active {
+        color: var(--primary);
+    }
+
+    @media (max-width: 900px) {
+        nav {
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 12px 15px;
+            gap: 15px;
+        }
+    }
+
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 24px 40px;
+    }
+
+    header{display:flex;align-items:center;gap:16px;margin-bottom:30px}
+    header h1{margin:0;font-size:2.5rem; font-weight: 800; color: var(--primary);}
+    header p{margin:0;color:var(--muted-light);font-size:1.1rem}
+    body.dark-mode header p { color: var(--muted-dark); }
+
+    /* Modern Card Layout */
+    .card {
+      background: var(--card-light);
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+      padding: 30px;
+      transition: var(--transition);
+    }
+    
+    body.dark-mode .card {
+      background: var(--card-dark);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap:30px;
+      align-items:start;
+    }
+
+    /* contact info column */
+    .info{
+      display:flex;
+      flex-direction:column;
+      gap:24px;   
+    }
+    
+    .contact-card{
+        display:flex;
+        gap:16px;
+        align-items:flex-start;
+        padding: 15px;
+        border-radius: 12px;
+        background: rgba(0,0,0,0.02);
+        transition: var(--transition);
+        border: 1px solid transparent;
+    }
+    body.dark-mode .contact-card { background: rgba(255,255,255,0.02); }
+    
+    .contact-card:hover {
+        background: rgba(155, 92, 246, 0.05); /* Primary color with low opacity */
+        border-color: rgba(155, 92, 246, 0.2);
+        transform: translateX(5px);
+    }
+
+    .icon{
+      width:48px;
+      height:48px;
+      border-radius:12px;
+      background:linear-gradient(135deg, rgba(155, 92, 246, 0.1), rgba(155, 92, 246, 0.05));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--primary);
+      flex-shrink:0;
+      transition: var(--transition);
+    }
+    .contact-card:hover .icon { transform: scale(1.1) rotate(5deg); }
+
+    .contact-meta{flex:1}
+    .contact-meta h3{margin:0 0 4px 0;font-size:15px; font-weight: 600; color: inherit;}
+    .contact-meta p{margin:0;color:var(--muted-light);font-size:14px}
+    body.dark-mode .contact-meta p { color: var(--muted-dark); }
+    
+    .contact-meta a { color: inherit; text-decoration: none; transition: var(--transition); }
+    .contact-meta a:hover { color: var(--primary); }
+
+    /* form column */
+    form{display:flex;flex-direction:column;gap:16px}
+    label{font-size:14px;font-weight: 500;}
+    
+    input[type="text"], input[type="email"], textarea, input[type="tel"]{
+      width:100%;
+      padding:12px 16px;
+      border-radius:10px;
+      border:1px solid rgba(0,0,0,0.1);
+      background:var(--bg-light);
+      color:inherit;
+      font-family: inherit;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+    
+    body.dark-mode input, body.dark-mode textarea {
+        background: rgba(0,0,0,0.2);
+        border-color: rgba(255,255,255,0.1);
+    }
+    
+    input:focus, textarea:focus {
+        outline:none;
+        border-color:var(--primary);
+        box-shadow: 0 0 0 4px rgba(155, 92, 246, 0.15);
+        background: var(--card-light);
+    }
+    body.dark-mode input:focus, body.dark-mode textarea:focus { background: var(--card-dark); }
+    
+    textarea{min-height:150px;resize:vertical}
+    
+    button.primary{
+      background:linear-gradient(135deg, var(--primary), var(--primary-hover));
+      color:white;
+      padding:14px 20px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+      font-size: 15px;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    button.primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(155, 92, 246, 0.3);
+    }
+    body.dark-mode button.primary { color: #000; }
+
+    .small{font-size:13px; font-weight: 600; text-transform: uppercase; color:var(--primary); margin-bottom: 12px;}
+    .success{color:#10b981;font-weight:600}
+
+    /* map */
+    .map{
+        height:250px;
+        border-radius:12px;
+        overflow:hidden;
+        border:1px solid rgba(0,0,0,0.06);
+        transition: var(--transition);
+    }
+    body.dark-mode .map { border-color: rgba(255,255,255,0.05); filter: brightness(0.8) contrast(1.2); }
+    .map:hover { box-shadow: var(--shadow-md); transform: scale(1.01); }
+
+    /* responsive */
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .icon{width:40px;height:40px}
+      header h1 { font-size: 2rem; }
+    }
+
+    /* social links */
+    .socials{display:flex;gap:12px; flex-wrap: wrap;}
+    .socials a{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        padding:10px 16px;
+        border-radius:10px;
+        background:rgba(0,0,0,0.03);
+        text-decoration:none;
+        color:inherit;
+        font-size:14px;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+    body.dark-mode .socials a { background: rgba(255,255,255,0.05); }
+    .socials a:hover {
+        background: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+    }
+    body.dark-mode .socials a:hover { color: #000; }
+
+    /* dark mode toggle */
+    #darkModeToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px; /* changed left back to right to match other pages */
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: var(--card-light);
+      color: var(--primary);
+      border: none;
+      box-shadow: var(--shadow-lg);
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      z-index: 1000;
+    }
+
+    #darkModeToggle:hover {
+        transform: rotate(15deg) scale(1.1);
+        background: var(--primary);
+        color: white;
+    }
+    
+    body.dark-mode #darkModeToggle {
+        background: var(--card-dark);
+    }
+    body.dark-mode #darkModeToggle:hover {
+        background: var(--primary);
+        color: #000;
+    }
+
+    /* Animation */
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-up {
+        animation: fadeUp 0.6s ease-out forwards;
+        opacity: 0;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+
+    /* Spotify Widget */
+    .spotify-widget {
+        position: fixed;
+        bottom: 20px;
+        left: 20px; /* Reset back to standard left position */
+        z-index: 1000;
+        display: flex;
+        align-items: flex-end;
+        gap: 15px;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateX(calc(-100% + 50px)); /* Hidden state, only toggle visible */
+    }
+    
+    .spotify-widget.open {
+        transform: translateX(0);
+    }
+
+    .spotify-content {
+        background: var(--card-light);
+        padding: 15px;
+        border-radius: 16px;
+        box-shadow: var(--shadow-lg);
+        width: 320px; /* Slightly wider */
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: var(--transition);
+        overflow: hidden; /* Ensure content doesn't overflow container */
+        line-height: 0; /* Remove baseline gap */
+    }
+    
+    .spotify-content iframe {
+        display: block;
+        border-radius: 12px;
+        background: transparent;
+    }
+    
+    body.dark-mode .spotify-content {
+        background: var(--card-dark);
+        border-color: rgba(255,255,255,0.05);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .spotify-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .spotify-toggle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-lg);
+        transition: var(--transition);
+        flex-shrink: 0; /* Prevent shrinking */
+    }
+
+    body.dark-mode .spotify-toggle {
+        color: #000;
+    }
+
+    .spotify-toggle:hover {
+        transform: scale(1.1);
+    }
+
+    .spotify-toggle svg {
+        width: 24px;
+        height: 24px;
+        transition: transform 0.3s ease;
+    }
+    
+    .spotify-widget.open .spotify-toggle svg {
+        transform: rotate(180deg);
+    }
+
+    @media (max-width: 900px) {
+        .spotify-widget {
+            bottom: 85px; /* Above dark mode toggle on mobile */
+            left: 20px;
+            transform: translateX(calc(-100% + 50px)); /* Different offset when alone */
+        }
+        
+        #darkModeToggle {
+            bottom: 20px;
+            right: 20px;
+        }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="lebenslauf2.html">📄 Lebenslauf</a>
+    <a href="kontakt.html" class="active">📧 Kontakt</a>
+  </nav>
+
+  <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
+
+  <div class="container">
+    <header class="animate-up">
+      <div>
+        <h1>Kontakt</h1>
+        <p>Schreib mir eine Nachricht oder nutze eine der schnellen Kontaktoptionen.</p>
+      </div>
+    </header>
+
+    <section class="grid">
+      <aside class="info animate-up delay-1" aria-label="Kontaktinformationen">
+        
+        <div class="card" style="display:flex; flex-direction:column; gap: 16px;">
+            <div class="contact-card">
+              <div class="icon" aria-hidden>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7.5V18a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 6.5l-9 6.5L3 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="contact-meta">
+                <h3>Email</h3>
+                <p><a href="mailto:hoppepaul66@gmail.com">hoppepaul66@gmail.com</a></p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="icon" aria-hidden>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19 19 0 0 1 3 5.18 2 2 0 0 1 5 3h3a2 2 0 0 1 2 1.72c.12 1.05.37 2.07.74 3.03a2 2 0 0 1-.45 2.11L9.91 11.91a16 16 0 0 0 6.18 6.18l1.05-1.05a2 2 0 0 1 2.11-.45c.96.37 1.98.62 3.03.74A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="contact-meta">
+                <h3>Telefon</h3>
+                <p><a href="tel:+491701234567">+49 177 5528876</a></p>
+              </div>
+            </div>
+
+            <div class="contact-card">
+              <div class="icon" aria-hidden>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="contact-meta">
+                <h3>Adresse</h3>
+                <p>Feldstraße 44<br>27711 Osterholz-Scharmbeck</p>
+              </div>
+            </div>
+        </div>
+
+        <div class="card">
+          <div class="small">Schnelle Links</div>
+          <div class="socials">
+            <a href="#" target="_blank" rel="noopener">💼 LinkedIn</a>
+            <a href="https://github.com/hoppepaul66-hue" target="_blank" rel="noopener">🐙 GitHub</a>
+          </div>
+        </div>
+      </aside>
+
+      <main class="card animate-up delay-2" aria-label="Kontaktformular">
+          <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
+            <input type="hidden" name="access_key" value="4f9d0ee8-e209-40d1-9366-b2b242bca449">
+            
+            <div>
+                <label for="name" style="display:none;">Name</label>
+                <input type="text" id="name" name="name" placeholder="Dein Name" required>
+            </div>
+            
+            <div>
+                <label for="email" style="display:none;">E-Mail</label>
+                <input type="email" id="email" name="email" placeholder="Deine E-Mail Adresse" required>
+            </div>
+            
+            <div>
+                <label for="message" style="display:none;">Nachricht</label>
+                <textarea id="message" name="message" placeholder="Wie kann ich helfen?" required></textarea>
+            </div>
+            
+            <div style="display:flex; align-items:center; gap: 10px; margin: 5px 0;">
+                <input type="checkbox" id="consent" required style="width: auto;">
+                <label for="consent" style="font-size: 0.9rem; font-weight: 400; opacity: 0.8; cursor: pointer;">Ich stimme der Datenverarbeitung zu.</label>
+            </div>
+
+            <button type="submit" class="primary">Nachricht senden 🚀</button>
+            <div id="formStatus" style="font-size: 14px; margin-top: 5px;"></div>
+          </form>
+      </main>
+      
+    </section>
+
+    <!-- Map Full Width -->
+    <div class="card animate-up delay-2" style="margin-top: 30px; padding: 20px;">
+        <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4776.373689239769!2d8.804834477080917!3d53.23242688324078!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b12e2f313f761f%3A0xf306bd4f5afca565!2sFeldstra%C3%9Fe%2044%2C%2027711%20Osterholz-Scharmbeck!5e0!3m2!1sde!2sde!4v1772782659961!5m2!1sde!2sde" width="100%" loading="lazy"></iframe>
+    </div>
+
+    <footer style="margin-top:40px;text-align:center;color:var(--muted-light);font-size:13px; opacity: 0.7;">
+        <p>&copy; 2026 Paul Hoppe - Erstellt mit HTML & CSS</p>
+    </footer>
+  </div>
+
+  <!-- Spotify Widget -->
+  <div class="spotify-widget" id="spotifyWidget">
+      <div class="spotify-content">
+          <div class="spotify-title">
+              🎧 Einer meiner Lieblingssongs
+          </div>
+          <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/track/7e0NuaDu2nENMjwhd96ENe?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="border: none; overflow: hidden;"></iframe>
+      </div>
+      <button class="spotify-toggle" id="spotifyToggle" aria-label="Toggle Spotify Player">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+      </button>
+  </div>
+
+  <script>
+    // Kontaktformular JS
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+
+    function validEmail(e){ return /\S+@\S+\.\S+/.test(e); }
+
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      status.textContent = 'Sende Nachricht...';
+      status.style.color = 'var(--text-light)';
+      
+      const formData = new FormData(form);
+      const name = formData.get('name')?.trim();
+      const email = formData.get('email')?.trim();
+      const message = formData.get('message')?.trim();
+      const consent = form.querySelector('#consent').checked;
+
+      // Simple Validation
+      if(!name || !email || !message){
+        status.textContent = 'Bitte alle Pflichtfelder ausfüllen.';
+        status.style.color = 'crimson';
+        return;
+      }
+      if(!validEmail(email)){
+        status.textContent = 'Gültige E-Mail erforderlich.';
+        status.style.color = 'crimson';
+        return;
+      }
+      if(!consent){
+        status.textContent = 'Zustimmung erforderlich.';
+        status.style.color = 'crimson';
+        return;
+      }
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+          body: JSON.stringify({ name, email, message }),
+        });
+
+        if (response.ok) {
+          status.textContent = 'Erfolgreich gesendet! Ich melde mich.';
+          status.className = 'success';
+          form.reset();
+        } else {
+          throw new Error('Serverfehler');
+        }
+      } catch (error) {
+        status.textContent = 'Fehler beim Senden. Bitte versuche es später noch einmal.';
+        status.style.color = 'crimson';
+      }
+    });
+
+    // Dark Mode Toggle
+    const darkBtn = document.getElementById('darkModeToggle');
+
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      if (darkBtn) darkBtn.innerText = "☀️";
+    }
+    if (darkBtn) {
+      darkBtn.addEventListener('click', () => {
+        const active = document.body.classList.toggle('dark-mode');
+        darkBtn.innerText = active ? "☀️" : "🌙";
+        localStorage.setItem('darkMode', active);
+      });
+    }
+
+    // Spotify Widget Toggle
+    const spotifyToggle = document.getElementById('spotifyToggle');
+    const spotifyWidget = document.getElementById('spotifyWidget');
+
+    if (spotifyToggle && spotifyWidget) {
+        spotifyToggle.addEventListener('click', () => {
+            spotifyWidget.classList.toggle('open');
+        });
+    }
+  </script>
+</body>
+</html>
