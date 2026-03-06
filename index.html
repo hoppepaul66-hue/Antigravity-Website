@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Hoppe | IT Portfolio</title>
+    <meta name="description" content="Persönliches Portfolio von Paul Hoppe. 17 Jahre alt, BBS Osterholz-Scharmbeck, Schwerpunkt IT.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+    :root {
+        --bg-color: #0f172a; /* Slate 900 */
+        --card-bg: rgba(30, 41, 59, 0.6); /* Slate 800 with opacity */
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --accent-cyan: #06b6d4;
+        --accent-purple: #8b5cf6;
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        background-color: var(--bg-color); /* Fallback */
+    }
+
+    body {
+        font-family: var(--font-main);
+        background-color: var(--bg-color);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+        position: relative;
+        min-height: 100vh;
+    }
+
+    /* Background Animated Blobs */
+    .blob {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(120px);
+        z-index: -1;
+        opacity: 0.6;
+        animation: drift 20s infinite alternate ease-in-out;
+        pointer-events: none;
+    }
+
+    .blob-1 {
+        top: -10%;
+        left: -10%;
+        width: 50vw;
+        height: 50vw;
+        background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
+    }
+
+    .blob-2 {
+        bottom: -10%;
+        right: -10%;
+        width: 40vw;
+        height: 40vw;
+        background: radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, transparent 70%);
+        animation-delay: -10s;
+    }
+
+    @keyframes drift {
+        0% { transform: translate(0, 0) scale(1); }
+        100% { transform: translate(10%, 10%) scale(1.1); }
+    }
+
+    /* Navigation */
+    nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 1.5rem 0;
+        transition: all 0.4s ease;
+    }
+
+    nav.scrolled {
+        padding: 1rem 0;
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--glass-border);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        text-decoration: none;
+        letter-spacing: -2px;
+        background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        transition: opacity 0.3s ease;
+    }
+
+    .logo:hover {
+        opacity: 0.8;
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2.5rem;
+    }
+
+    .nav-links a {
+        color: var(--text-primary);
+        text-decoration: none;
+        font-weight: 400;
+        font-size: 1.05rem;
+        transition: color 0.3s ease;
+        position: relative;
+        padding-bottom: 5px;
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+        transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover {
+        color: var(--accent-cyan);
+    }
+
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    /* Utilities */
+    .highlight {
+        background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 600;
+    }
+
+    .glass-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        padding: 2.5rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
+    }
+
+    .glass-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 2.5rem;
+        border-radius: 30px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn.primary {
+        background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+        color: white;
+        box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+        z-index: 1;
+    }
+
+    .btn.primary::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+        z-index: -1;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
+
+    .btn.primary:hover::before {
+        opacity: 1;
+    }
+
+    .btn.primary:hover {
+        box-shadow: 0 6px 25px rgba(139, 92, 246, 0.5);
+        transform: translateY(-3px);
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 5rem;
+    }
+
+    .section-header h2 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    /* Sections Base */
+    section {
+        min-height: 100vh;
+        padding: 10rem 2rem 5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Hero Section */
+    .hero {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4rem;
+        padding-top: 12rem; /* Account for fixed nav */
+    }
+
+    .hero-content {
+        flex: 1;
+    }
+
+    .greeting {
+        color: var(--accent-cyan);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+    }
+
+    .hero h1 {
+        font-size: 5.5rem;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+        font-weight: 800;
+        letter-spacing: -2px;
+    }
+
+    .subtitle {
+        font-size: 2.2rem;
+        color: var(--text-secondary);
+        font-weight: 400;
+        margin-bottom: 3rem;
+    }
+
+    .hero-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        position: relative;
+    }
+
+    .hero-image::after {
+        content: '';
+        position: absolute;
+        width: 350px;
+        height: 350px;
+        background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 60%);
+        filter: blur(60px);
+        z-index: -1;
+        opacity: 0.3;
+    }
+
+    .image-placeholder {
+        width: 380px;
+        height: 380px;
+        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
+        border: 1px solid var(--glass-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 7rem;
+        font-weight: 800;
+        color: rgba(255, 255, 255, 0.05);
+        box-shadow: inset 0 0 20px rgba(6, 182, 212, 0.2), 0 20px 50px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        animation: morphFloat 8s ease-in-out infinite;
+    }
+
+    @keyframes morphFloat {
+        0% { transform: translateY(0px); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        50% { transform: translateY(-20px); border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        100% { transform: translateY(0px); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+    }
+
+    /* About Section */
+    .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 4rem;
+        align-items: center;
+    }
+
+    .info-card {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .info-item {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 1.2rem;
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    .info-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .label {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .value {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-top: 0.4rem;
+    }
+
+    .text-content p {
+        font-size: 1.25rem;
+        margin-bottom: 1.8rem;
+        color: var(--text-secondary);
+        line-height: 1.8;
+    }
+
+    /* Skills Section */
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2.5rem;
+    }
+
+    .skill-card {
+        text-align: center;
+        padding: 3rem 2rem;
+    }
+
+    .skill-card .icon {
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
+        display: inline-block;
+        transition: transform 0.3s ease;
+    }
+
+    .skill-card:hover .icon {
+        transform: scale(1.1) rotate(5deg);
+    }
+
+    .skill-card h3 {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+
+    .skill-card p {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    /* Footer */
+    footer {
+        padding: 4rem 0 2rem;
+        text-align: center;
+        border-top: 1px solid var(--glass-border);
+        position: relative;
+        z-index: 10;
+    }
+
+    .footer-content p {
+        color: var(--text-secondary);
+        font-size: 1rem;
+    }
+
+    /* Animations / Scroll Reveal */
+    .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.2s; }
+    .delay-2 { transition-delay: 0.4s; }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+        .hero h1 { font-size: 4.5rem; }
+        .subtitle { font-size: 1.8rem; }
+        .image-placeholder { width: 320px; height: 320px; }
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            flex-direction: column-reverse;
+            text-align: center;
+            gap: 3rem;
+            padding-top: 8rem;
+        }
+        
+        .hero-image::after { display: none; }
+        
+        .hero h1 { font-size: 3.5rem; }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .about-content {
+            grid-template-columns: 1fr;
+        }
+        
+        .section-header h2 { font-size: 2.8rem; }
+        
+        .nav-links { display: none; } /* Could add a hamburger menu later */
+        
+        .image-placeholder {
+            width: 250px;
+            height: 250px;
+            font-size: 4rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero h1 { font-size: 2.8rem; }
+        .subtitle { font-size: 1.4rem; }
+        section { padding: 6rem 1.5rem 3rem; }
+    }
+    </style>
+</head>
+<body>
+    <!-- Background Animated Blobs for Dark Mode Aesthetic -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <nav id="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">PH.</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#skills">Tech-Fokus</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content reveal">
+                <p class="greeting">System online, ich bin</p>
+                <h1 class="glitch" data-text="Paul Hoppe">Paul Hoppe</h1>
+                <h2 class="subtitle">Angehender IT-Spezialist</h2>
+                <div class="hero-buttons">
+                    <a href="#about" class="btn primary">Profil laden</a>
+                </div>
+            </div>
+            <div class="hero-image reveal delay-1">
+                <div class="image-placeholder">
+                    <span>PH</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="section-header reveal">
+                <h2>Über <span class="highlight">Mich</span></h2>
+            </div>
+            <div class="about-content reveal delay-1">
+                <div class="glass-card info-card">
+                    <div class="info-item">
+                        <span class="label">Alter</span>
+                        <span class="value">17 Jahre</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Schule</span>
+                        <span class="value">BBS Osterholz-Scharmbeck</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Aktueller Status</span>
+                        <span class="value">Zwischenjahr</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Schwerpunkt</span>
+                        <span class="value highlight">Informationstechnik (IT)</span>
+                    </div>
+                </div>
+                <div class="text-content">
+                    <p>Hallo! Ich bin Paul, 17 Jahre alt und habe eine große Leidenschaft für moderne Technologien, Software und Netzwerke.</p>
+                    <p>Aktuell absolviere ich ein Zwischenjahr an der BBS Osterholz-Scharmbeck mit dem klaren Schwerpunkt auf dem Bereich IT. Dort vertiefe ich mein technisches Verständnis und bereite mich optimal auf meine zukünftige Karriere in der IT-Branche vor. Ich liebe es, Probleme zu analysieren und digitale Lösungen zu schaffen.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills">
+            <div class="section-header reveal">
+                <h2>Mein <span class="highlight">Tech-Fokus</span></h2>
+            </div>
+            <div class="skills-grid">
+                <div class="glass-card skill-card reveal">
+                    <div class="icon">💻</div>
+                    <h3>Hardware & Systeme</h3>
+                    <p>Verständnis für Computerarchitektur und Betriebssysteme.</p>
+                </div>
+                <div class="glass-card skill-card reveal delay-1">
+                    <div class="icon">🌐</div>
+                    <h3>Netzwerktechnik</h3>
+                    <p>Grundlagen der Infrastruktur, Protokolle und sicheren Kommunikation.</p>
+                </div>
+                <div class="glass-card skill-card reveal delay-2">
+                    <div class="icon">⚡</div>
+                    <h3>Software & Coding</h3>
+                    <p>Erste Schritte in der Programmierung und das Verstehen von Logikstrukturen.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Paul Hoppe. Designed with passion for IT.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Navbar Scroll Effect (Glassmorphism enhancer)
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Scroll Reveal Animation Logic
+        const reveals = document.querySelectorAll('.reveal');
+
+        function checkReveal() {
+            const windowHeight = window.innerHeight;
+            const revealPoint = 150; // trigger point from bottom
+
+            reveals.forEach((reveal) => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                
+                // If the element's top is visible in the viewport
+                if (elementTop < windowHeight - revealPoint) {
+                    reveal.classList.add('active');
+                }
+            });
+        }
+
+        // Run on load in case elements are already visible
+        checkReveal();
+        // Run actively on scroll
+        window.addEventListener('scroll', checkReveal);
+        
+        // 3. Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Offset calculation if navigation is fixed
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      
+                    window.scrollTo({
+                         top: offsetPosition,
+                         behavior: "smooth"
+                    });
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
