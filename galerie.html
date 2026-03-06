@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Galerie | Paul Hoppe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* Modern Variables & Reset */
+    :root {
+      --primary: #9b5cf6;
+      --primary-hover: #8b5cf6;
+      --bg-light: #f8fafc;
+      --bg-dark: #121212;
+      --card-light: #ffffff;
+      --card-dark: #1e1e1e;
+      --text-light: #334155;
+      --text-dark: #f1f5f9;
+      --muted-light: #64748b;
+      --muted-dark: #94a3b8;
+      --nav-bg-light: rgba(255, 255, 255, 0.8);
+      --nav-bg-dark: rgba(18, 18, 18, 0.8);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 900px) {
+        :root {
+            --primary: #8b0000;
+            --primary-hover: #a52a2a;
+        }
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      --primary: #b8a5db;
+      --primary-hover: #c4b5e3;
+    }
+
+    @media (max-width: 900px) {
+        body.dark-mode {
+            --primary: #ff4d4d;
+            --primary-hover: #ff6666;
+        }
+    }
+
+    *{box-sizing:border-box}
+    
+    body{
+      margin:0;
+      font-family: 'Inter', sans-serif;
+      background:var(--bg-light);
+      color:var(--text-light);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:0;
+      line-height:1.6;
+      transition: var(--transition);
+    }
+
+    /* Navigationsleiste (Modern Glassmorphism) */
+    nav {
+        background-color: var(--nav-bg-light);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 15px 30px;
+        margin-bottom: 40px;
+        display: flex;
+        gap: 25px;
+        border-bottom: 2px solid var(--primary);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: var(--shadow-md);
+    }
+    
+    body.dark-mode nav {
+        background-color: var(--nav-bg-dark);
+    }
+
+    nav a {
+        text-decoration: none;
+        color: inherit;
+        font-weight: 600;
+        position: relative;
+        padding-bottom: 4px;
+        transition: var(--transition);
+    }
+
+    nav a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--primary);
+        transition: width 0.3s ease;
+    }
+
+    nav a:hover::after, nav a.active::after {
+        width: 100%;
+    }
+
+    nav a:hover, nav a.active {
+        color: var(--primary);
+    }
+
+    @media (max-width: 900px) {
+        nav {
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 12px 15px;
+            gap: 15px;
+        }
+    }
+
+    .container{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 24px 40px;
+    }
+
+    header{display:flex;align-items:center;gap:16px;margin-bottom:30px}
+    header h1{margin:0;font-size:2.5rem; font-weight: 800; color: var(--primary);}
+    header p{margin:0;color:var(--muted-light);font-size:1.1rem}
+    body.dark-mode header p { color: var(--muted-dark); }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 30px 0;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      background: var(--card-light);
+      cursor: pointer;
+      height: 300px;
+    }
+
+    body.dark-mode .gallery-item {
+      background: var(--card-dark);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .gallery-item:hover .gallery-image {
+      transform: scale(1.08);
+    }
+
+    .gallery-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .gallery-item.video-item:hover .gallery-video {
+      transform: scale(1.08);
+    }
+
+    .video-overlay-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: rgba(155, 92, 246, 0.8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 28px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      pointer-events: auto !important;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+
+    .video-overlay-play:hover {
+      transform: translate(-50%, -50%) scale(1.15);
+      background: rgba(155, 92, 246, 0.95);
+    }
+
+    .video-overlay-play:active {
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+
+    .gallery-item.video-item:hover .video-overlay-play {
+      opacity: 1;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .gallery-item.video-item .gallery-overlay {
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-title {
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .gallery-description {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 13px;
+      margin: 5px 0 0 0;
+    }
+
+    /* Placeholder styling */
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(155, 92, 246, 0.1), rgba(155, 92, 246, 0.05));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: var(--muted-light);
+      gap: 10px;
+      transition: var(--transition);
+    }
+
+    body.dark-mode .gallery-placeholder {
+      color: var(--muted-dark);
+    }
+
+    .gallery-item:hover .gallery-placeholder {
+      background: linear-gradient(135deg, rgba(155, 92, 246, 0.15), rgba(155, 92, 246, 0.1));
+      color: var(--primary);
+    }
+
+    .placeholder-icon {
+      font-size: 40px;
+    }
+
+    .placeholder-text {
+      font-size: 13px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* dark mode toggle */
+    #darkModeToggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: var(--card-light);
+      color: var(--primary);
+      border: none;
+      box-shadow: var(--shadow-lg);
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      z-index: 1000;
+    }
+
+    #darkModeToggle:hover {
+        transform: rotate(15deg) scale(1.1);
+        background: var(--primary);
+        color: white;
+    }
+    
+    body.dark-mode #darkModeToggle {
+        background: var(--card-dark);
+    }
+    body.dark-mode #darkModeToggle:hover {
+        background: var(--primary);
+        color: #000;
+    }
+
+    /* Animation */
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-up {
+        animation: fadeUp 0.6s ease-out forwards;
+        opacity: 0;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+
+    /* Spotify Widget */
+    .spotify-widget {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        z-index: 1000;
+        display: flex;
+        align-items: flex-end;
+        gap: 15px;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transform: translateX(calc(-100% + 50px));
+    }
+    
+    .spotify-widget.open {
+        transform: translateX(0);
+    }
+
+    .spotify-content {
+        background: var(--card-light);
+        padding: 15px;
+        border-radius: 16px;
+        box-shadow: var(--shadow-lg);
+        width: 320px;
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: var(--transition);
+        overflow: hidden;
+        line-height: 0;
+    }
+    
+    .spotify-content iframe {
+        display: block;
+        border-radius: 12px;
+        background: transparent;
+    }
+    
+    body.dark-mode .spotify-content {
+        background: var(--card-dark);
+        border-color: rgba(255,255,255,0.05);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .spotify-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .spotify-toggle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: white;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow-lg);
+        transition: var(--transition);
+        flex-shrink: 0;
+    }
+
+    body.dark-mode .spotify-toggle {
+        color: #000;
+    }
+
+    .spotify-toggle:hover {
+        transform: scale(1.1);
+    }
+
+    .spotify-toggle svg {
+        width: 24px;
+        height: 24px;
+        transition: transform 0.3s ease;
+    }
+    
+    .spotify-widget.open .spotify-toggle svg {
+        transform: rotate(180deg);
+    }
+
+    @media (max-width: 900px) {
+        .spotify-widget {
+            bottom: 85px;
+            left: 20px;
+            transform: translateX(calc(-100% + 50px));
+        }
+        
+        #darkModeToggle {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .gallery-grid {
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 16px;
+        }
+
+        .gallery-item {
+          height: 250px;
+        }
+
+        header h1 {
+          font-size: 2rem;
+        }
+    }
+
+    /* Scroll Progress Bar */
+    #scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: var(--primary);
+        width: 0%;
+        z-index: 9999;
+        box-shadow: 0 0 10px var(--primary);
+        transition: width 0.1s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="scroll-progress"></div>
+
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="lebenslauf2.html">📄 Lebenslauf</a>
+    <a href="galerie.html" class="active">🎨 Galerie</a>
+    <a href="kontakt.html">📧 Kontakt</a>
+  </nav>
+
+  <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
+
+  <div class="container">
+    <header class="animate-up">
+      <div>
+        <h1>Galerie</h1>
+        <p>Ein Blick in meine Welt - Momente, die mir wichtig sind.</p>
+      </div>
+    </header>
+
+    <section class="gallery-grid animate-up delay-1" aria-label="Fotogalerie">
+      <!-- Galerie Item 1 -->
+      <div class="gallery-item">
+        <img src="Pictures/ich.jpeg" alt="Paul Porträt" class="gallery-image" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=placeholder-icon>📷</div></div>'">
+        <div class="gallery-overlay">
+          <h3 class="gallery-title">Ich</h3>
+          <p class="gallery-description">Joa, das bin ich :3</p>
+        </div>
+      </div>
+
+      <!-- Galerie Item 2 -->
+      <div class="gallery-item">
+        <img src="Pictures/essen.jpeg" alt="Geiles Essen" class="gallery-image" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=placeholder-icon>📷</div></div>'">
+        <div class="gallery-overlay">
+          <h3 class="gallery-title">Geiles Essen</h3>
+          <p class="gallery-description">Geiler Salat den ich gemacht habe</p>
+        </div>
+      </div>
+
+      <!-- Galerie Item 3 -->
+      <div class="gallery-item">
+        <img src="Pictures/setup.jpeg" alt="Tech Setup" class="gallery-image" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=placeholder-icon>📷</div></div>'">
+        <div class="gallery-overlay">
+          <h3 class="gallery-title">Tech Setup</h3>
+          <p class="gallery-description">Mein persönliches Workspace</p>
+        </div>
+      </div>
+
+      <!-- Galerie Item 4 -->
+      <div class="gallery-item video-item">
+        <video src="Pictures/kahrs.mp4" class="gallery-video" style="width:100%; height:100%; object-fit:cover;"></video>
+        <div class="video-overlay-play">▶</div>
+        <div class="gallery-overlay">
+          <h3 class="gallery-title">Kahrs GmbH</h3>
+          <p class="gallery-description">Mein Praktikum Abenteuer</p>
+        </div>
+      </div>
+
+      <!-- Galerie Item 5 -->
+      <div class="gallery-item">
+        <img src="Pictures/natur.jpeg" alt="Natur" class="gallery-image" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=placeholder-icon>📷</div></div>'">
+        <div class="gallery-overlay">
+          <h3 class="gallery-title">Natur</h3>
+          <p class="gallery-description">Schöne Momente in der Natur</p>
+        </div>
+      </div>
+
+      <!-- Galerie Item 6 -->
+      <div class="gallery-item">
+        <img src="Pictures/paul.jpg" alt="Skateboard Abenteuer" class="gallery-image" onerror="this.parentElement.innerHTML='<div class=gallery-placeholder><div class=placeholder-icon>📷</div></div>'">
+        <div class="gallery-overlay">
+          <h3 class="gallery-title">Placeholder</h3>
+          <p class="gallery-description">Placeholder-Beschreibung</p>
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top:40px;text-align:center;color:var(--muted-light);font-size:13px; opacity: 0.7;">
+        <p>&copy; 2026 Paul Hoppe - Erstellt mit HTML & CSS</p>
+    </footer>
+  </div>
+
+  <!-- Spotify Widget -->
+  <div class="spotify-widget" id="spotifyWidget">
+      <div class="spotify-content">
+          <div class="spotify-title">
+              🎧 Einer meiner Lieblingssongs
+          </div>
+          <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/track/7e0NuaDu2nENMjwhd96ENe?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="border: none; overflow: hidden;"></iframe>
+      </div>
+      <button class="spotify-toggle" id="spotifyToggle" aria-label="Toggle Spotify Player">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+      </button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+  <script>
+    // VanillaTilt Init (3D Hover Effect)
+    VanillaTilt.init(document.querySelectorAll(".gallery-item"), {
+        max: 3,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.05
+    });
+
+    // Scroll Progression Bar
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+        document.getElementById('scroll-progress').style.width = scrolled + '%';
+    });
+
+    // Video Play Button - Robust Implementation
+    function initializeVideoButtons() {
+      const videoItems = document.querySelectorAll('.video-item');
+      console.log('Found', videoItems.length, 'video items');
+      
+      videoItems.forEach((item, index) => {
+        const video = item.querySelector('.gallery-video');
+        const playBtn = item.querySelector('.video-overlay-play');
+        
+        console.log('Video item', index, '- Video:', !!video, 'PlayBtn:', !!playBtn);
+        
+        if (playBtn && video) {
+          // Click handler with preventDefault
+          playBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Play button clicked! Video paused:', video.paused);
+            
+            if (video.paused) {
+              video.play().catch(err => console.log('Play error:', err));
+            } else {
+              video.pause();
+            }
+          });
+          
+          // Also support touch
+          playBtn.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (video.paused) {
+              video.play().catch(err => console.log('Play error:', err));
+            } else {
+              video.pause();
+            }
+          });
+          
+          // Update button visibility
+          video.addEventListener('play', () => {
+            playBtn.style.opacity = '0';
+            playBtn.style.pointerEvents = 'none';
+          });
+          
+          video.addEventListener('pause', () => {
+            playBtn.style.opacity = '1';
+            playBtn.style.pointerEvents = 'auto';
+          });
+          
+          // Initial state
+          playBtn.style.pointerEvents = 'auto';
+        }
+      });
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeVideoButtons);
+    } else {
+      initializeVideoButtons();
+    }
+
+    // Dark Mode Toggle
+    const darkBtn = document.getElementById('darkModeToggle');
+
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      if (darkBtn) darkBtn.innerText = "☀️";
+    }
+    if (darkBtn) {
+      darkBtn.addEventListener('click', () => {
+        const active = document.body.classList.toggle('dark-mode');
+        darkBtn.innerText = active ? "☀️" : "🌙";
+        localStorage.setItem('darkMode', active);
+      });
+    }
+
+    // Spotify Widget Toggle
+    const spotifyToggle = document.getElementById('spotifyToggle');
+    const spotifyWidget = document.getElementById('spotifyWidget');
+
+    if (spotifyToggle && spotifyWidget) {
+        spotifyToggle.addEventListener('click', () => {
+            spotifyWidget.classList.toggle('open');
+        });
+    }
+  </script>
+</body>
+</html>
