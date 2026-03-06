@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Snake Game - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Modern Variables & Reset */
+        :root {
+            --primary: #9b5cf6;
+            --primary-hover: #8b5cf6;
+            --bg-light: #f8fafc;
+            --bg-dark: #121212;
+            --card-light: #ffffff;
+            --card-dark: #1e1e1e;
+            --text-light: #334155;
+            --text-dark: #f1f5f9;
+            --nav-bg-light: rgba(255, 255, 255, 0.8);
+            --nav-bg-dark: rgba(18, 18, 18, 0.8);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (max-width: 600px) {
+            :root {
+                --primary: #8b0000;
+                --primary-hover: #a52a2a;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            line-height: 1.7;
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+            --primary: #b8a5db;
+            --primary-hover: #c4b5e3;
+        }
+
+        @media (max-width: 600px) {
+            body.dark-mode {
+                --primary: #ff4d4d;
+                --primary-hover: #ff6666;
+            }
+        }
+
+        /* Navigationsleiste (Modern Glassmorphism) */
+        nav {
+            background-color: var(--nav-bg-light);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 30px;
+            margin-bottom: 40px;
+            display: flex;
+            gap: 25px;
+            border-bottom: 2px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-md);
+        }
+        
+        body.dark-mode nav {
+            background-color: var(--nav-bg-dark);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 4px;
+            transition: var(--transition);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                justify-content: center;
+                flex-wrap: wrap;
+                padding: 12px 15px;
+                gap: 15px;
+            }
+        }
+
+        /* Container & Cards */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px 40px;
+            position: relative;
+        }
+
+        h1, h2, h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        h1 { font-size: 2.5rem; font-weight: 800; }
+        h2 { font-size: 1.8rem; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 8px;}
+        body.dark-mode h2 { border-bottom-color: rgba(255,255,255,0.05); }
+
+        /* Modernes Card-Layout für Sektionen */
+        .card-section {
+            background-color: var(--card-light);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            transform: translateY(0);
+        }
+        
+        body.dark-mode .card-section {
+            background-color: var(--card-dark);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Timer (Retro) */
+        #timer {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            z-index: 1001;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        body.dark-mode #timer {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #000;
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        /* Dark Mode Button */
+        #darkModeToggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            background: var(--card-light);
+            color: var(--primary);
+            border: none;
+            box-shadow: var(--shadow-lg);
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+        
+        #darkModeToggle:hover {
+            transform: rotate(15deg) scale(1.1);
+            background: var(--primary);
+            color: white;
+        }
+        
+        body.dark-mode #darkModeToggle {
+            background: var(--card-dark);
+        }
+        body.dark-mode #darkModeToggle:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        /* Cheat Button */
+        #cheatButton {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            z-index: 1001;
+            font-family: 'Inter', sans-serif;
+            min-width: 120px;
+        }
+        
+        #cheatButton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        #cheatButton:active {
+            transform: translateY(0);
+        }
+
+        /* Snake Game Styles */
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        canvas {
+            border: 5px solid var(--primary);
+            box-shadow: var(--shadow-lg);
+            background-color: #000;
+            border-radius: 8px;
+        }
+
+        .info {
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .info h1 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .control-btn {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .control-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .card-section { padding: 20px; }
+            #timer { top: auto; bottom: 85px; right: 20px; }
+            #darkModeToggle { bottom: 20px; right: 20px; }
+            #cheatButton { top: 50%; right: 10px; transform: translateY(-50%) scale(0.9); }
+            canvas { width: 100%; max-width: 350px; height: 350px; }
+            h1 { font-size: 2rem; }
+        }
+
+        /* Animation Classes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-up {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="lebenslauf2.html">📄 Lebenslauf</a>
+        <a href="galerie.html">🎨 Galerie</a>
+        <a href="kontakt.html">📧 Kontakt</a>
+        <a href="Snake game.html" class="active">🐍 Snake Game</a>
+    </nav>
+
+    <div class="container">
+        <div class="card-section animate-up">
+            <div class="game-container">
+                <div class="info">
+                    <h1>Retro Snake Game</h1>
+                    <p>Punkte: <span id="score">0</span></p>
+                </div>
+                
+                <canvas id="snakeGame" width="400" height="400"></canvas>
+                
+                <div class="controls">
+                    <button class="control-btn" id="startBtn">Start Game</button>
+                    <button class="control-btn" id="pauseBtn">Pause</button>
+                    <button class="control-btn" id="resetBtn">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dark Mode & Timer -->
+    <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
+    <div id="timer">Zeit > 0m 0s</div>
+    <button id="cheatButton">🎮 Auto Play</button>
+
+    <!-- Background Music -->
+    <audio id="gameMusic" loop preload="auto">
+        <source src="snake-theme.mp3" type="audio/mpeg">
+        <source src="snake-theme.ogg" type="audio/ogg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const canvas = document.getElementById("snakeGame");
+        const ctx = canvas.getContext("2d");
+        const scoreElement = document.getElementById("score");
+        const startBtn = document.getElementById("startBtn");
+        const pauseBtn = document.getElementById("pauseBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const cheatButton = document.getElementById("cheatButton");
+        const gameMusic = document.getElementById("gameMusic");
+
+        const box = 20; // Größe eines Quadrats
+        let score = 0;
+        let gameSpeed = 150;
+        let gameRunning = false;
+        let gamePaused = false;
+        let autoPlay = false;
+
+        // Die Schlange (Array aus Objekten)
+        let snake = [];
+        snake[0] = { x: 9 * box, y: 10 * box };
+
+        // Das Essen
+        let food = {
+            x: Math.floor(Math.random() * 19 + 1) * box,
+            y: Math.floor(Math.random() * 19 + 1) * box
+        };
+
+        let d; // Richtung
+
+        // Steuerung
+        document.addEventListener("keydown", direction);
+
+        function direction(event) {
+            if (!autoPlay) {
+                if(event.keyCode == 37 && d != "RIGHT") d = "LEFT";
+                else if(event.keyCode == 38 && d != "DOWN") d = "UP";
+                else if(event.keyCode == 39 && d != "LEFT") d = "RIGHT";
+                else if(event.keyCode == 40 && d != "UP") d = "DOWN";
+            }
+        }
+
+        // Kollisionsprüfung
+        function collision(head, array) {
+            for(let i = 0; i < array.length; i++) {
+                if(head.x == array[i].x && head.y == array[i].y) return true;
+            }
+            return false;
+        }
+
+        // Auto-Play Algorithmus (einfacher Pfad zum Essen)
+        function getAutoDirection() {
+            let head = snake[0];
+            let dx = food.x - head.x;
+            let dy = food.y - head.y;
+            
+            // Priorisiere Richtung zum Essen, aber prüfe Sicherheit
+            let preferredDirections = [];
+            
+            // Horizontale Bewegung bevorzugen
+            if (dx > 0) preferredDirections.push("RIGHT");
+            else if (dx < 0) preferredDirections.push("LEFT");
+            
+            // Vertikale Bewegung
+            if (dy > 0) preferredDirections.push("DOWN");
+            else if (dy < 0) preferredDirections.push("UP");
+            
+            // Wenn keine Bewegung nötig, behalte aktuelle
+            if (dx === 0 && dy === 0) return d;
+            
+            // Prüfe bevorzugte Richtungen
+            for (let dir of preferredDirections) {
+                if (dir == oppositeDirection(d)) continue; // Vermeide Rückwärts
+                let nextPos = getNextPosition(head, dir);
+                if (isValidPosition(nextPos) && !collision(nextPos, snake)) {
+                    return dir;
+                }
+            }
+            
+            // Fallback: aktuelle Richtung, wenn sicher
+            let currentNext = getNextPosition(head, d);
+            if (isValidPosition(currentNext) && !collision(currentNext, snake)) {
+                return d;
+            }
+            
+            // Letzte Chance: irgendeine sichere Richtung
+            let directions = ["LEFT", "UP", "RIGHT", "DOWN"];
+            for (let dir of directions) {
+                if (dir == oppositeDirection(d)) continue;
+                let nextPos = getNextPosition(head, dir);
+                if (isValidPosition(nextPos) && !collision(nextPos, snake)) {
+                    return dir;
+                }
+            }
+            
+            // Wenn keine sichere Richtung gefunden wurde, Game Over für Auto-Play
+            if (autoPlay) {
+                clearInterval(game);
+                gameRunning = false;
+                alert("Auto-Play kann nicht weiter! Score: " + score);
+                location.reload();
+                return d;
+            }
+            
+            return d; // Notfall: bleibe (manueller Modus)
+        }
+
+        function getNextPosition(pos, dir) {
+            let newPos = {x: pos.x, y: pos.y};
+            if (dir == "LEFT") newPos.x -= box;
+            if (dir == "UP") newPos.y -= box;
+            if (dir == "RIGHT") newPos.x += box;
+            if (dir == "DOWN") newPos.y += box;
+            return newPos;
+        }
+
+        function oppositeDirection(dir) {
+            if (dir == "LEFT") return "RIGHT";
+            if (dir == "RIGHT") return "LEFT";
+            if (dir == "UP") return "DOWN";
+            if (dir == "DOWN") return "UP";
+            return "";
+        }
+
+        function isValidPosition(pos) {
+            return pos.x >= 0 && pos.x < canvas.width && pos.y >= 0 && pos.y < canvas.height;
+        }
+
+        // Haupt-Zeichenfunktion
+        function draw() {
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for(let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i == 0) ? "#2ecc71" : "#27ae60";
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+                
+                // Rahmen um die Schlangenteile
+                ctx.strokeStyle = "#2c3e50";
+                ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+            }
+
+            // Essen zeichnen
+            ctx.fillStyle = "#e74c3c";
+            ctx.fillRect(food.x, food.y, box, box);
+
+            // Alte Kopfposition
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+
+            if (autoPlay) {
+                d = getAutoDirection();
+            }
+
+            // Richtung anpassen
+            if( d == "LEFT") snakeX -= box;
+            if( d == "UP") snakeY -= box;
+            if( d == "RIGHT") snakeX += box;
+            if( d == "DOWN") snakeY += box;
+
+            // Wenn die Schlange das Essen frisst
+            if(snakeX == food.x && snakeY == food.y) {
+                score++;
+                scoreElement.innerHTML = score;
+                food = {
+                    x: Math.floor(Math.random() * 19 + 1) * box,
+                    y: Math.floor(Math.random() * 19 + 1) * box
+                };
+                // Geschwindigkeit erhöhen (langsamer und begrenzter)
+                clearInterval(game);
+                gameSpeed = Math.max(80, gameSpeed - 2);
+                game = setInterval(draw, gameSpeed);
+            } else {
+                // Schwanz entfernen
+                snake.pop();
+            }
+
+            // Neuer Kopf
+            let newHead = { x: snakeX, y: snakeY };
+
+            // Game Over Regeln
+            if(snakeX < 0 || snakeX >= canvas.width || snakeY < 0 || snakeY >= canvas.height || collision(newHead, snake)) {
+                if (!autoPlay) {
+                    clearInterval(game);
+                    gameRunning = false;
+                    alert("Game Over! Deine Punkte: " + score);
+                    location.reload(); // Seite neu laden zum Neustart
+                } else {
+                    // Bei Auto-Play: Versuche eine andere Richtung oder reset
+                    d = getAutoDirection();
+                    if (d == oppositeDirection(d)) {
+                        // Wenn keine Richtung möglich, reset
+                        resetGame();
+                        return;
+                    }
+                }
+            }
+
+            snake.unshift(newHead);
+        }
+
+        let game;
+
+        // Audio functions
+        function playMusic() {
+            gameMusic.play().catch(e => console.log("Audio play failed:", e));
+        }
+
+        function stopMusic() {
+            gameMusic.pause();
+            gameMusic.currentTime = 0;
+        }
+
+        function startGame() {
+            if (!gameRunning) {
+                d = "RIGHT"; // Starte mit Rechts-Bewegung
+                game = setInterval(draw, gameSpeed);
+                gameRunning = true;
+                gamePaused = false;
+                pauseBtn.textContent = "Pause";
+                playMusic();
+            }
+        }
+
+        function pauseGame() {
+            if (gameRunning) {
+                if (gamePaused) {
+                    game = setInterval(draw, gameSpeed);
+                    gamePaused = false;
+                    pauseBtn.textContent = "Pause";
+                    playMusic();
+                } else {
+                    clearInterval(game);
+                    gamePaused = true;
+                    pauseBtn.textContent = "Resume";
+                    gameMusic.pause();
+                }
+            }
+        }
+
+        function resetGame() {
+            clearInterval(game);
+            gameRunning = false;
+            gamePaused = false;
+            autoPlay = false;
+            score = 0;
+            scoreElement.innerHTML = score;
+            snake = [];
+            snake[0] = { x: 9 * box, y: 10 * box };
+            food = {
+                x: Math.floor(Math.random() * 19 + 1) * box,
+                y: Math.floor(Math.random() * 19 + 1) * box
+            };
+            d = undefined;
+            draw();
+            pauseBtn.textContent = "Pause";
+            cheatButton.textContent = "🎮 Auto Play";
+            stopMusic();
+        }
+
+        function toggleAutoPlay() {
+            autoPlay = !autoPlay;
+            if (autoPlay) {
+                cheatButton.textContent = "⏹️ Stop Auto";
+                if (!gameRunning) {
+                    startGame();
+                }
+            } else {
+                cheatButton.textContent = "🎮 Auto Play";
+            }
+        }
+
+        // Event Listeners
+        startBtn.addEventListener("click", startGame);
+        pauseBtn.addEventListener("click", pauseGame);
+        resetBtn.addEventListener("click", resetGame);
+        cheatButton.addEventListener("click", toggleAutoPlay);
+
+        // Initial draw
+        draw();
+
+        // Timer
+        let sekunden = 0;
+        const timerElement = document.getElementById('timer');
+
+        setInterval(() => {
+            sekunden++;
+            let m = Math.floor(sekunden / 60);
+            let s = sekunden % 60;
+            timerElement.innerText = `Zeit > ${m}m ${s}s`;
+        }, 1000);
+
+        // Dark Mode
+        const btn = document.getElementById('darkModeToggle');
+
+        const stored = localStorage.getItem('darkMode');
+        if (stored === 'true') {
+            document.body.classList.add('dark-mode');
+            btn.innerText = "☀️";
+        }
+
+        btn.addEventListener('click', () => {
+            const active = document.body.classList.toggle('dark-mode');
+            btn.innerText = active ? "☀️" : "🌙";
+            localStorage.setItem('darkMode', active);
+        });
+    </script>
+</body>
+</html>
