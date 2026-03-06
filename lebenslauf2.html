@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lebenslauf | Paul Hoppe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet">
     <style>
         /* Modern Variables & Reset */
         :root {
@@ -73,7 +75,7 @@
             z-index: 1000;
             box-shadow: var(--shadow-md);
         }
-        
+
         body.dark-mode nav {
             background-color: var(--nav-bg-dark);
         }
@@ -98,11 +100,13 @@
             transition: width 0.3s ease;
         }
 
-        nav a:hover::after, nav a.active::after {
+        nav a:hover::after,
+        nav a.active::after {
             width: 100%;
         }
 
-        nav a:hover, nav a.active {
+        nav a:hover,
+        nav a.active {
             color: var(--primary);
         }
 
@@ -135,7 +139,7 @@
             overflow: hidden;
             transition: var(--transition);
         }
-        
+
         body.dark-mode .header-flex {
             background-color: var(--card-dark);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
@@ -145,13 +149,17 @@
         .header-flex::before {
             content: '';
             position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            background: linear-gradient(135deg, rgba(0,123,255,0.05) 0%, transparent 100%);
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.05) 0%, transparent 100%);
             z-index: 0;
             pointer-events: none;
         }
+
         body.dark-mode .header-flex::before {
-            background: linear-gradient(135deg, rgba(128,0,128,0.1) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(128, 0, 128, 0.1) 0%, transparent 100%);
         }
 
         .profile-pic {
@@ -169,7 +177,10 @@
             transform: scale(1.05) rotate(3deg);
         }
 
-        .header-text { z-index: 1; }
+        .header-text {
+            z-index: 1;
+        }
+
         .header-text h1 {
             margin: 0 0 10px 0;
             color: var(--primary);
@@ -182,9 +193,22 @@
             opacity: 0.8;
             font-size: 0.95rem;
         }
-        body.dark-mode .contact-info { color: var(--text-dark); }
-        .contact-info a { color: var(--primary); font-weight: 600; text-decoration: none; transition: var(--transition);}
-        .contact-info a:hover { color: var(--primary-hover); text-decoration: underline; }
+
+        body.dark-mode .contact-info {
+            color: var(--text-dark);
+        }
+
+        .contact-info a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-info a:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
 
         @media (max-width: 750px) {
             .header-flex {
@@ -203,7 +227,7 @@
             box-shadow: var(--shadow-md);
             transition: var(--transition);
         }
-        
+
         body.dark-mode .section-card {
             background-color: var(--card-dark);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
@@ -227,23 +251,31 @@
             content: '';
             flex: 1;
             height: 2px;
-            background: rgba(0,0,0,0.05);
+            background: rgba(0, 0, 0, 0.05);
             border-radius: 2px;
         }
-        body.dark-mode h2::after { background: rgba(255,255,255,0.05); }
+
+        body.dark-mode h2::after {
+            background: rgba(255, 255, 255, 0.05);
+        }
 
         /* Timeline / Einträge */
         .entry {
             display: flex;
             margin-bottom: 20px;
             padding-left: 15px;
-            border-left: 3px solid rgba(0,123,255,0.2);
+            border-left: 3px solid rgba(0, 123, 255, 0.2);
             position: relative;
             transition: var(--transition);
         }
-        body.dark-mode .entry { border-left-color: rgba(128,0,128,0.2); }
 
-        .entry:hover { border-left-color: var(--primary); }
+        body.dark-mode .entry {
+            border-left-color: rgba(128, 0, 128, 0.2);
+        }
+
+        .entry:hover {
+            border-left-color: var(--primary);
+        }
 
         .entry::before {
             content: '';
@@ -257,8 +289,14 @@
             box-shadow: 0 0 0 3px var(--card-light);
             transition: transform 0.3s ease;
         }
-        body.dark-mode .entry::before { box-shadow: 0 0 0 3px var(--card-dark); }
-        .entry:hover::before { transform: scale(1.3); }
+
+        body.dark-mode .entry::before {
+            box-shadow: 0 0 0 3px var(--card-dark);
+        }
+
+        .entry:hover::before {
+            transform: scale(1.3);
+        }
 
         .date {
             font-weight: 800;
@@ -267,7 +305,10 @@
             font-size: 0.95rem;
         }
 
-        .content { flex-grow: 1; }
+        .content {
+            flex-grow: 1;
+        }
+
         .content strong {
             display: block;
             margin-bottom: 5px;
@@ -275,8 +316,13 @@
         }
 
         @media (max-width: 750px) {
-            .entry { flex-direction: column; }
-            .date { margin-bottom: 5px; }
+            .entry {
+                flex-direction: column;
+            }
+
+            .date {
+                margin-bottom: 5px;
+            }
         }
 
         /* Skills Grid */
@@ -287,7 +333,9 @@
         }
 
         @media (max-width: 750px) {
-            .skills-grid { grid-template-columns: 1fr; }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Skill-Balken (Animiert) */
@@ -305,20 +353,24 @@
 
         .progress-bar-bg {
             flex-grow: 1;
-            background-color: rgba(0,0,0,0.05);
+            background-color: rgba(0, 0, 0, 0.05);
             border-radius: 10px;
             height: 8px;
             margin: 0 15px;
             overflow: hidden;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         }
-        body.dark-mode .progress-bar-bg { background-color: rgba(255,255,255,0.1); }
+
+        body.dark-mode .progress-bar-bg {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
 
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--primary-hover));
             border-radius: 10px;
-            width: 0; /* JS Animation */
+            width: 0;
+            /* JS Animation */
             transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -337,7 +389,7 @@
         }
 
         .list-style li {
-            background: rgba(0,0,0,0.02);
+            background: rgba(0, 0, 0, 0.02);
             padding: 10px 15px;
             border-radius: 8px;
             margin-bottom: 8px;
@@ -345,7 +397,10 @@
             align-items: center;
             transition: var(--transition);
         }
-        body.dark-mode .list-style li { background: rgba(255,255,255,0.03); }
+
+        body.dark-mode .list-style li {
+            background: rgba(255, 255, 255, 0.03);
+        }
 
         .list-style li::before {
             content: "✓";
@@ -355,10 +410,13 @@
         }
 
         .list-style li:hover {
-            background: rgba(0,0,0,0.05);
+            background: rgba(0, 0, 0, 0.05);
             transform: translateX(5px);
         }
-        body.dark-mode .list-style li:hover { background: rgba(255,255,255,0.08); }
+
+        body.dark-mode .list-style li:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
 
         /* Buttons & Utility */
         .download-btn {
@@ -382,7 +440,10 @@
             box-shadow: 0 8px 15px rgba(0, 123, 255, 0.3);
             transform: translateY(-2px);
         }
-        body.dark-mode .download-btn:hover { box-shadow: 0 8px 15px rgba(128, 0, 128, 0.3); }
+
+        body.dark-mode .download-btn:hover {
+            box-shadow: 0 8px 15px rgba(128, 0, 128, 0.3);
+        }
 
         #darkModeToggle {
             position: fixed;
@@ -403,9 +464,21 @@
             transition: var(--transition);
             z-index: 1000;
         }
-        #darkModeToggle:hover { transform: rotate(15deg) scale(1.1); background: var(--primary); color: white; }
-        body.dark-mode #darkModeToggle { background: var(--card-dark); }
-        body.dark-mode #darkModeToggle:hover { background: var(--primary); color: #000; }
+
+        #darkModeToggle:hover {
+            transform: rotate(15deg) scale(1.1);
+            background: var(--primary);
+            color: white;
+        }
+
+        body.dark-mode #darkModeToggle {
+            background: var(--card-dark);
+        }
+
+        body.dark-mode #darkModeToggle:hover {
+            background: var(--primary);
+            color: #000;
+        }
 
         footer {
             text-align: center;
@@ -418,17 +491,33 @@
 
         /* Animation Classes */
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .animate-up {
             animation: slideUp 0.8s ease-out forwards;
             opacity: 0;
         }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
 
         /* Spotify Widget */
         .spotify-widget {
@@ -440,9 +529,10 @@
             align-items: flex-end;
             gap: 15px;
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateX(calc(-100% + 50px)); /* Hidden state, only toggle visible */
+            transform: translateX(calc(-100% + 50px));
+            /* Hidden state, only toggle visible */
         }
-        
+
         .spotify-widget.open {
             transform: translateX(0);
         }
@@ -452,23 +542,26 @@
             padding: 15px;
             border-radius: 16px;
             box-shadow: var(--shadow-lg);
-            width: 320px; /* Slightly wider */
-            border: 1px solid rgba(0,0,0,0.05);
+            width: 320px;
+            /* Slightly wider */
+            border: 1px solid rgba(0, 0, 0, 0.05);
             transition: var(--transition);
-            overflow: hidden; /* Ensure content doesn't overflow container */
-            line-height: 0; /* Remove baseline gap */
+            overflow: hidden;
+            /* Ensure content doesn't overflow container */
+            line-height: 0;
+            /* Remove baseline gap */
         }
-        
+
         .spotify-content iframe {
             display: block;
             border-radius: 12px;
             background: transparent;
         }
-        
+
         body.dark-mode .spotify-content {
             background: var(--card-dark);
-            border-color: rgba(255,255,255,0.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border-color: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
 
         .spotify-title {
@@ -494,7 +587,8 @@
             justify-content: center;
             box-shadow: var(--shadow-lg);
             transition: var(--transition);
-            flex-shrink: 0; /* Prevent shrinking */
+            flex-shrink: 0;
+            /* Prevent shrinking */
         }
 
         body.dark-mode .spotify-toggle {
@@ -510,7 +604,7 @@
             height: 24px;
             transition: transform 0.3s ease;
         }
-        
+
         .spotify-widget.open .spotify-toggle svg {
             transform: rotate(180deg);
         }
@@ -520,235 +614,302 @@
                 bottom: 20px;
                 right: 20px;
             }
+
             .spotify-widget {
-                bottom: 85px; /* Above dark mode toggle on mobile */
+                bottom: 85px;
+                /* Above dark mode toggle on mobile */
                 transform: translateX(calc(-100% + 50px));
             }
         }
+
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--primary);
+            width: 0%;
+            z-index: 9999;
+            box-shadow: 0 0 10px var(--primary);
+            transition: width 0.1s ease;
+        }
     </style>
 </head>
+
 <body>
+    <div id="scroll-progress"></div>
 
-<nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="lebenslauf2.html" class="active">📄 Lebenslauf</a>
-    <a href="kontakt.html">📧 Kontakt</a>
-</nav>
+    <nav>
+        <a href="index.html">🏠 Home</a>
+        <a href="lebenslauf2.html" class="active">📄 Lebenslauf</a>
+        <a href="kontakt.html">📧 Kontakt</a>
+    </nav>
 
-<button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
+    <button id="darkModeToggle" aria-label="Toggle Dark Mode">🌙</button>
 
-<div class="container">
-    
-    <div style="text-align: right;">
-        <button class="download-btn animate-up" id="downloadBtn">📥 Als PDF herunterladen</button>
-    </div>
+    <div class="container">
 
-    <!-- Header Section -->
-    <header class="header-flex animate-up delay-1">
-        <img src="paul2.png" alt="Paul Hoppe" class="profile-pic" onerror="this.src='https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=300&q=80'">
-        <div class="header-text">
-            <h1>Paul Hoppe</h1>
-            <p class="contact-info">
-                Feldstraße 44 | 27711 Osterholz-Scharmbeck<br>
-                E-Mail: <a href="mailto:hoppepaul66@gmail.com">hoppepaul66@gmail.com</a> | Tel: <a href="tel:+491775528876">+49 177 5528876</a>
+        <div style="text-align: right;">
+            <button class="download-btn animate-up" id="downloadBtn">📥 Als PDF herunterladen</button>
+        </div>
+
+        <!-- Header Section -->
+        <header class="header-flex animate-up delay-1">
+            <img src="paul2.png" alt="Paul Hoppe" class="profile-pic"
+                onerror="this.src='https://images.unsplash.com/photo-1549490349-8643362247b5?auto=format&fit=crop&w=300&q=80'">
+            <div class="header-text">
+                <h1>Paul Hoppe</h1>
+                <p class="contact-info">
+                    Feldstraße 44 | 27711 Osterholz-Scharmbeck<br>
+                    E-Mail: <a href="mailto:hoppepaul66@gmail.com">hoppepaul66@gmail.com</a> | Tel: <a
+                        href="tel:+491775528876">+49 177 5528876</a>
+                </p>
+            </div>
+        </header>
+
+        <!-- Content Sections -->
+        <section class="section-card animate-up delay-2">
+            <h2>Persönliches Profil</h2>
+            <p>
+                Hey, mein Name ist Paul Hoppe, ich bin 17 Jahre alt und gehe zurzeit zur BBS Osterholz-Scharmbeck.
+                Ich mag es, mit Freunden draußen Zeit zu verbringen und interessiere mich besonders fürs Skaten sowie
+                alles rund um Technik.
             </p>
-        </div>
-    </header>
-
-    <!-- Content Sections -->
-    <section class="section-card animate-up delay-2">
-        <h2>Persönliches Profil</h2>
-        <p>
-            Hey, mein Name ist Paul Hoppe, ich bin 17 Jahre alt und gehe zurzeit zur BBS Osterholz-Scharmbeck. 
-            Ich mag es, mit Freunden draußen Zeit zu verbringen und interessiere mich besonders fürs Skaten sowie alles rund um Technik.
-        </p>
-    </section>
-
-    <!-- Bildung & Erfahrung -->
-    <div class="skills-grid">
-        <section class="section-card animate-up delay-3" style="margin-bottom: 0;">
-            <h2>Schulausbildung</h2>
-            <div class="entry">
-                <div class="date">2025 - 2026</div>
-                <div class="content">
-                    <strong>BBS Osterholz-Scharmbeck (aktuell)</strong>
-                    <span style="opacity:0.8; font-size: 0.9rem;">Einjähriges IT-Jahr (Fachrichtung Informatik)</span>
-                </div>
-            </div>
-            <div class="entry">
-                <div class="date">2019 - 2025</div>
-                <div class="content">
-                    <strong>IGS Osterholz-Scharmbeck</strong>
-                </div>
-            </div>
-            <div class="entry" style="margin-bottom:0; border-left-color:transparent;">
-                <div class="date">2014 - 2019</div>
-                <div class="content">
-                    <strong>Grundschule Findorffschule Osterholz-Scharmbeck</strong>
-                </div>
-            </div>
         </section>
 
-        <section class="section-card animate-up delay-3" style="margin-bottom: 0;">
-            <h2>Berufserfahrung & Praktika</h2>
-            <div class="entry">
-                <div class="date">02/2024 – 03/2024</div>
-                <div class="content">
-                    <strong>Marktkauf, Einzelhandel</strong>
-                    <span style="opacity:0.8; font-size: 0.9rem;">Tätigkeiten: Waren-Inventur, MHD-Check, Verräumen von Waren</span>
-                </div>
-            </div>
-            <div class="entry">
-                <div class="date">Seit 09/2023</div>
-                <div class="content">
-                    <strong>K.-H.-Lilientahl & Sohn OHG</strong>
-                    <span style="opacity:0.8; font-size: 0.9rem;">Tätigkeiten: Aushilfe im Bestattungswesen</span>
-                </div>
-            </div>
-            <div class="entry" style="margin-bottom:0; border-left-color:transparent;">
-                <div class="date">08/2023 – 09/2023</div>
-                <div class="content">
-                    <strong>K.-H.-Lilientahl & Sohn OHG</strong>
-                    <span style="opacity:0.8; font-size: 0.9rem;">Tätigkeiten: Unterstützung bei Abholungen, Aufbau von Trauerfeiern (Bestatter)</span>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div style="height: 30px;"></div>
-
-    <!-- Skills Grid -->
-    <section class="section-card animate-up delay-3">
+        <!-- Bildung & Erfahrung -->
         <div class="skills-grid">
-            <div>
-                <h2>Kenntnisse</h2>
-                <div style="margin-bottom: 25px;">
-                    <p style="font-weight: 800; margin: 10px 0 10px; font-size: 0.9rem; text-transform: uppercase; color: var(--primary);">Sprachen</p>
-                    <div class="skill-container">
-                        <span class="skill-name">Deutsch</span>
-                        <div class="progress-bar-bg"><div class="progress-fill" data-width="100%"></div></div>
-                        <span class="skill-ratio">5/5</span>
-                    </div>
-                    <div class="skill-container">
-                        <span class="skill-name">Englisch</span>
-                        <div class="progress-bar-bg"><div class="progress-fill" data-width="80%"></div></div>
-                        <span class="skill-ratio">4/5</span>
+            <section class="section-card animate-up delay-3" style="margin-bottom: 0;">
+                <h2>Schulausbildung</h2>
+                <div class="entry">
+                    <div class="date">2025 - 2026</div>
+                    <div class="content">
+                        <strong>BBS Osterholz-Scharmbeck (aktuell)</strong>
+                        <span style="opacity:0.8; font-size: 0.9rem;">Einjähriges IT-Jahr (Fachrichtung
+                            Informatik)</span>
                     </div>
                 </div>
+                <div class="entry">
+                    <div class="date">2019 - 2025</div>
+                    <div class="content">
+                        <strong>IGS Osterholz-Scharmbeck</strong>
+                    </div>
+                </div>
+                <div class="entry" style="margin-bottom:0; border-left-color:transparent;">
+                    <div class="date">2014 - 2019</div>
+                    <div class="content">
+                        <strong>Grundschule Findorffschule Osterholz-Scharmbeck</strong>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-card animate-up delay-3" style="margin-bottom: 0;">
+                <h2>Berufserfahrung & Praktika</h2>
+                <div class="entry">
+                    <div class="date">Seit 11/2025</div>
+                    <div class="content">
+                        <strong>K.-H.-Lilientahl & Sohn OHG <span
+                                style="font-size: 0.85rem; font-weight: normal; opacity: 0.8;">(Bestatter)</span></strong>
+                        <span style="opacity:0.8; font-size: 0.9rem;">Tätigkeiten: Aushilfe bei Abholungen</span>
+                    </div>
+                </div>
+                <div class="entry">
+                    <div class="date">02/2024 – 03/2024</div>
+                    <div class="content">
+                        <strong>Marktkauf Ludwig <span
+                                style="font-size: 0.85rem; font-weight: normal; opacity: 0.8;">(Einzelhandel)</span></strong>
+                        <span style="opacity:0.8; font-size: 0.9rem;">Tätigkeiten: Waren-Inventur, MHD-Check, Verräumen
+                            von Waren</span>
+                    </div>
+                </div>
+                <div class="entry" style="margin-bottom:0; border-left-color:transparent;">
+                    <div class="date">08/2023 – 09/2023</div>
+                    <div class="content">
+                        <strong>K.-H.-Lilientahl & Sohn OHG <span
+                                style="font-size: 0.85rem; font-weight: normal; opacity: 0.8;">(Bestatter)</span></strong>
+                        <span style="opacity:0.8; font-size: 0.9rem;">Tätigkeiten: Unterstützung bei Abholungen, Aufbau
+                            von Trauerfeiern</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div style="height: 30px;"></div>
+
+        <!-- Skills Grid -->
+        <section class="section-card animate-up delay-3">
+            <div class="skills-grid">
                 <div>
-                    <p style="font-weight: 800; margin: 10px 0 10px; font-size: 0.9rem; text-transform: uppercase; color: var(--primary);">IT-Kenntnisse</p>
-                    <div class="skill-container">
-                        <span class="skill-name">HTML</span>
-                        <div class="progress-bar-bg"><div class="progress-fill" data-width="20%"></div></div>
-                        <span class="skill-ratio">1/5</span>
-                    </div>
-                    <div class="skill-container">
-                        <span class="skill-name">MS Office</span>
-                        <div class="progress-bar-bg"><div class="progress-fill" data-width="60%"></div></div>
-                        <span class="skill-ratio">3/5</span>
-                    </div>
+                    <h2>Kenntnisse</h2>
+                    <div style="margin-bottom: 25px;">
+                        <p
+                            style="font-weight: 800; margin: 10px 0 10px; font-size: 0.9rem; text-transform: uppercase; color: var(--primary);">
+                            Sprachen</p>
                         <div class="skill-container">
-                        <span class="skill-name">Python</span>
-                        <div class="progress-bar-bg"><div class="progress-fill" data-width="40%"></div></div>
-                        <span class="skill-ratio">2/5</span>
-                    </div>
+                            <span class="skill-name">Deutsch</span>
+                            <div class="progress-bar-bg">
+                                <div class="progress-fill" data-width="100%"></div>
+                            </div>
+                            <span class="skill-ratio">5/5</span>
+                        </div>
                         <div class="skill-container">
-                        <span class="skill-name">C#</span>
-                        <div class="progress-bar-bg"><div class="progress-fill" data-width="30%"></div></div>
-                        <span class="skill-ratio">1,5/5</span>
+                            <span class="skill-name">Englisch</span>
+                            <div class="progress-bar-bg">
+                                <div class="progress-fill" data-width="80%"></div>
+                            </div>
+                            <span class="skill-ratio">4/5</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p
+                            style="font-weight: 800; margin: 10px 0 10px; font-size: 0.9rem; text-transform: uppercase; color: var(--primary);">
+                            IT-Kenntnisse</p>
+                        <div class="skill-container">
+                            <span class="skill-name">HTML</span>
+                            <div class="progress-bar-bg">
+                                <div class="progress-fill" data-width="20%"></div>
+                            </div>
+                            <span class="skill-ratio">1/5</span>
+                        </div>
+                        <div class="skill-container">
+                            <span class="skill-name">MS Office</span>
+                            <div class="progress-bar-bg">
+                                <div class="progress-fill" data-width="60%"></div>
+                            </div>
+                            <span class="skill-ratio">3/5</span>
+                        </div>
+                        <div class="skill-container">
+                            <span class="skill-name">Python</span>
+                            <div class="progress-bar-bg">
+                                <div class="progress-fill" data-width="40%"></div>
+                            </div>
+                            <span class="skill-ratio">2/5</span>
+                        </div>
+                        <div class="skill-container">
+                            <span class="skill-name">C#</span>
+                            <div class="progress-bar-bg">
+                                <div class="progress-fill" data-width="30%"></div>
+                            </div>
+                            <span class="skill-ratio">1,5/5</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex; flex-direction: column; gap: 30px;">
+                    <div>
+                        <h2 style="margin-bottom: 15px;">Hobbys</h2>
+                        <ul class="list-style">
+                            <li>Skateboard fahren</li>
+                            <li>Gaming</li>
+                            <li>Technik & Programmieren</li>
+                            <li>Mit Freunden treffen</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2 style="margin-bottom: 15px;">Stärken</h2>
+                        <ul class="list-style">
+                            <li>Lernbereitschaft</li>
+                            <li>Teamfähigkeit</li>
+                            <li>Zuverlässigkeit</li>
+                            <li>Pünktlichkeit</li>
+                        </ul>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div style="display:flex; flex-direction: column; gap: 30px;">
-                <div>
-                    <h2 style="margin-bottom: 15px;">Hobbys</h2>
-                    <ul class="list-style">
-                        <li>Skateboard fahren</li>
-                        <li>Gaming</li>
-                        <li>Technik & Programmieren</li>
-                        <li>Mit Freunden treffen</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h2 style="margin-bottom: 15px;">Stärken</h2>
-                    <ul class="list-style">
-                        <li>Lernbereitschaft</li>
-                        <li>Teamfähigkeit</li>
-                        <li>Zuverlässigkeit</li>
-                        <li>Pünktlichkeit</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 Paul Hoppe - Erstellt mit HTML & CSS</p>
-    </footer>
-</div>
-
-<!-- Spotify Widget -->
-<div class="spotify-widget" id="spotifyWidget">
-    <div class="spotify-content">
-        <div class="spotify-title">
-            🎧 Einer meiner Lieblingssongs
-        </div>
-        <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/track/7e0NuaDu2nENMjwhd96ENe?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="border: none; overflow: hidden;"></iframe>
+        <footer>
+            <p>&copy; 2026 Paul Hoppe - Erstellt mit HTML & CSS</p>
+        </footer>
     </div>
-    <button class="spotify-toggle" id="spotifyToggle" aria-label="Toggle Spotify Player">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </button>
-</div>
 
-<script>
-    // Animate Progress Bars
-    document.addEventListener("DOMContentLoaded", () => {
-        const fills = document.querySelectorAll('.progress-fill');
-        setTimeout(() => {
-            fills.forEach(fill => {
-                fill.style.width = fill.getAttribute('data-width');
+    <!-- Spotify Widget -->
+    <div class="spotify-widget" id="spotifyWidget">
+        <div class="spotify-content">
+            <div class="spotify-title">
+                🎧 Einer meiner Lieblingssongs
+            </div>
+            <iframe data-testid="embed-iframe"
+                src="https://open.spotify.com/embed/track/7e0NuaDu2nENMjwhd96ENe?utm_source=generator" width="100%"
+                height="152" frameBorder="0" allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"
+                style="border: none; overflow: hidden;"></iframe>
+        </div>
+        <button class="spotify-toggle" id="spotifyToggle" aria-label="Toggle Spotify Player">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- External Script for 3D Tilt Effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
+    <script>
+        // VanillaTilt Init (3D Hover Effect)
+        VanillaTilt.init(document.querySelectorAll(".section-card"), {
+            max: 2,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.05
+        });
+
+        // Scroll Progression Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            document.getElementById('scroll-progress').style.width = scrolled + '%';
+        });
+
+        // Animate Progress Bars
+        document.addEventListener("DOMContentLoaded", () => {
+            const fills = document.querySelectorAll('.progress-fill');
+            setTimeout(() => {
+                fills.forEach(fill => {
+                    fill.style.width = fill.getAttribute('data-width');
+                });
+            }, 300); // Verzögert, damit der Slide-Up-Effekt vorher wirkt
+        });
+
+
+        // Dark Mode Toggle
+        const btn = document.getElementById('darkModeToggle');
+
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            if (btn) btn.innerText = "☀️";
+        }
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const active = document.body.classList.toggle('dark-mode');
+                btn.innerText = active ? "☀️" : "🌙";
+                localStorage.setItem('darkMode', active);
             });
-        }, 300); // Verzögert, damit der Slide-Up-Effekt vorher wirkt
-    });
+        }
 
+        // Download Button Print Option
+        const downloadBtn = document.getElementById('downloadBtn');
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', function () {
+                window.print();
+            });
+        }
 
-    // Dark Mode Toggle
-    const btn = document.getElementById('darkModeToggle');
+        // Spotify Widget Toggle
+        const spotifyToggle = document.getElementById('spotifyToggle');
+        const spotifyWidget = document.getElementById('spotifyWidget');
 
-    if (localStorage.getItem('darkMode') === 'true') {
-        document.body.classList.add('dark-mode');
-        if (btn) btn.innerText = "☀️";
-    }
-    if (btn) {
-        btn.addEventListener('click', () => {
-            const active = document.body.classList.toggle('dark-mode');
-            btn.innerText = active ? "☀️" : "🌙";
-            localStorage.setItem('darkMode', active);
-        });
-    }
-
-    // Download Button Print Option
-    const downloadBtn = document.getElementById('downloadBtn');
-    if (downloadBtn) {
-        downloadBtn.addEventListener('click', function() {
-            window.print();
-        });
-    }
-
-    // Spotify Widget Toggle
-    const spotifyToggle = document.getElementById('spotifyToggle');
-    const spotifyWidget = document.getElementById('spotifyWidget');
-
-    if (spotifyToggle && spotifyWidget) {
-        spotifyToggle.addEventListener('click', () => {
-            spotifyWidget.classList.toggle('open');
-        });
-    }
-</script>
+        if (spotifyToggle && spotifyWidget) {
+            spotifyToggle.addEventListener('click', () => {
+                spotifyWidget.classList.toggle('open');
+            });
+        }
+    </script>
 
 </body>
+
 </html>

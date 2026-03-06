@@ -440,9 +440,23 @@
             right: 20px;
         }
     }
+
+    /* Scroll Progress Bar */
+    #scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: var(--primary);
+        width: 0%;
+        z-index: 9999;
+        box-shadow: 0 0 10px var(--primary);
+        transition: width 0.1s ease;
+    }
   </style>
 </head>
 <body>
+  <div id="scroll-progress"></div>
 
   <nav>
     <a href="index.html">🏠 Home</a>
@@ -560,7 +574,25 @@
       </button>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
   <script>
+    // VanillaTilt Init (3D Hover Effect)
+    VanillaTilt.init(document.querySelectorAll(".card"), {
+        max: 3,
+        speed: 400,
+        glare: true,
+        "max-glare": 0.05
+    });
+
+    // Scroll Progression Bar
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+        document.getElementById('scroll-progress').style.width = scrolled + '%';
+    });
+
     // Kontaktformular JS
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');

@@ -246,6 +246,25 @@
         body.dark-mode ul li:hover { background: rgba(255,255,255,0.1); }
 
         /* Banner */
+        /* ASCII Text / Typing Container */
+        .ascii-art {
+            font-family: 'Press Start 2P', monospace;
+            font-size: min(10px, 1.8vw);
+            line-height: 1.2;
+            color: var(--primary);
+            margin: 0 0 20px 0;
+            overflow: hidden;
+            white-space: pre;
+        }
+
+        @media (max-width: 900px) {
+            .ascii-art {
+                font-size: min(7px, 1.5vw);
+                overflow-x: auto; /* Erlaube Scrollen auf dem Handy, falls es zu groß ist */
+                padding-bottom: 10px; /* Platz für evtl. Scrollbar */
+            }
+        }
+
         .banner-container {
             position: relative;
             border-radius: 20px;
@@ -358,6 +377,36 @@
         a.text-link:hover {
             color: var(--primary-hover);
             border-bottom-style: solid;
+        }
+
+        /* Primary Button Style (for Socials) */
+        .primary-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            border: none;
+        }
+        
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(155, 92, 246, 0.3);
+            color: white;
+        }
+        
+        body.dark-mode .primary-btn {
+            color: #000;
+        }
+        body.dark-mode .primary-btn:hover {
+            color: #000;
         }
 
         /* Animation Classes */
@@ -477,9 +526,35 @@
                 transform: translateX(calc(-100% + 50px));
             }
         }
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--primary);
+            width: 0%;
+            z-index: 9999;
+            box-shadow: 0 0 10px var(--primary);
+            transition: width 0.1s ease;
+        }
+
+        /* Typing cursor */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 0.9em;
+            background-color: var(--primary);
+            animation: blink 1s step-end infinite;
+            margin-left: 5px;
+            vertical-align: bottom;
+            transform: translateY(-5px);
+        }
+        @keyframes blink { 50% { opacity: 0; } }
     </style>
 </head>
 <body>
+    <div id="scroll-progress"></div>
 
     <nav>
         <a href="index.html" class="active">🏠 Home</a>
@@ -503,8 +578,8 @@
 
         <!-- Main Info -->
         <div class="card-section animate-up delay-1">
-            <h1>Hallo, ich bin Paul Hoppe!</h1>
-            <p style="font-size: 1.1rem; margin-bottom: 15px; color: var(--primary); font-weight: 600;">Willkommen auf meiner Website.</p>
+            <pre class="ascii-art"><span class="typed-text"></span><span class="cursor" style="height: 1em; transform: translateY(0);">&nbsp;</span></pre>
+            <p style="font-size: 1.1rem; margin-bottom: 15px; color: var(--primary); font-weight: 600;">Schüler & IT-Interessierter</p>
             <p><b>Wer bin ich eigentlich?</b><br> Ich bin Paul, ich bin 17 Jahre alt und werde im Juli 18. Momentan mache ich ein 4-wöchiges Praktikum bei der Kahrs GmbH. Ich gehe generell auf die BBS Osterholz-Scharmbeck und mache da grade ein Zwischenjahr in der Richtung IT.</p>
         </div>
 
@@ -522,12 +597,12 @@
         <div class="card-section animate-up delay-3">
             <h2>Was für Leute höre ich so?</h2>
             <ul style="margin-bottom: 15px;">
-                <li style="padding: 0;"><a href="https://open.spotify.com/artist/2ye2Wgw4gimLv2eAKyk1NB?si=Pl9gj26IQKmp_hUlw-k6ZA" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px; text-decoration: none; color: inherit; font-weight: 500;">Metallica</a></li>
-                <li style="padding: 0;"><a href="https://open.spotify.com/artist/4JDFGvSwHHCQn6vKrniKln?si=vC9JdcZZQbCKfsI4uk0KBg" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px; text-decoration: none; color: inherit; font-weight: 500;">Paul Elstak</a></li>
-                <li style="padding: 0;"><a href="https://open.spotify.com/artist/4JDFGvSwHHCQn6vKrniKln?si=vC9JdcZZQbCKfsI4uk0KBg" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px; text-decoration: none; color: inherit; font-weight: 500;">Wally</a></li>
-                <li style="padding: 0;"><a href="https://open.spotify.com/artist/6XyY86QOPPrYVGvF9ch6wz?si=pBId74sHSXGIzeeoxX6FNw" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px; text-decoration: none; color: inherit; font-weight: 500;">Linkin Park</a></li>
-                <li style="padding: 0;"><a href="https://open.spotify.com/artist/6olE6TJLqED3rqDCT0FyPh?si=Brow1zfnRZiqsuteul8l4g" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px; text-decoration: none; color: inherit; font-weight: 500;">Nirvana</a></li>
-                <li style="padding: 0;"><a href="https://open.spotify.com/artist/1VmIfQToGVtxmv2w3QtyVY?si=2XOXWlFFSmqpQgyG9agzWA" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px; text-decoration: none; color: inherit; font-weight: 500;">Symba</a></li>
+                <li style="padding: 0; padding-left: 20px;"><a href="https://open.spotify.com/artist/2ye2Wgw4gimLv2eAKyk1NB?si=Pl9gj26IQKmp_hUlw-k6ZA" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px 12px 0; text-decoration: none; color: inherit; font-weight: 500;">Metallica</a></li>
+                <li style="padding: 0; padding-left: 20px;"><a href="https://open.spotify.com/artist/4JDFGvSwHHCQn6vKrniKln?si=vC9JdcZZQbCKfsI4uk0KBg" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px 12px 0; text-decoration: none; color: inherit; font-weight: 500;">Paul Elstak</a></li>
+                <li style="padding: 0; padding-left: 20px;"><a href="https://open.spotify.com/artist/4JDFGvSwHHCQn6vKrniKln?si=vC9JdcZZQbCKfsI4uk0KBg" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px 12px 0; text-decoration: none; color: inherit; font-weight: 500;">Wally</a></li>
+                <li style="padding: 0; padding-left: 20px;"><a href="https://open.spotify.com/artist/6XyY86QOPPrYVGvF9ch6wz?si=pBId74sHSXGIzeeoxX6FNw" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px 12px 0; text-decoration: none; color: inherit; font-weight: 500;">Linkin Park</a></li>
+                <li style="padding: 0; padding-left: 20px;"><a href="https://open.spotify.com/artist/6olE6TJLqED3rqDCT0FyPh?si=Brow1zfnRZiqsuteul8l4g" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px 12px 0; text-decoration: none; color: inherit; font-weight: 500;">Nirvana</a></li>
+                <li style="padding: 0; padding-left: 20px;"><a href="https://open.spotify.com/artist/1VmIfQToGVtxmv2w3QtyVY?si=2XOXWlFFSmqpQgyG9agzWA" target="_blank" rel="noopener" style="display: block; width: 100%; padding: 12px 20px 12px 0; text-decoration: none; color: inherit; font-weight: 500;">Symba</a></li>
             </ul>
             <p style="font-style: italic; opacity: 0.8; font-size: 0.9rem;">Aber das sind nur wenige Artists, die ich so höre.</p>
         </div>
@@ -537,16 +612,16 @@
             <h3 style="margin-bottom: 25px;">Meine Socials</h3>
             
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <a href="https://www.youtube.com/@Hxqe" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:10px; background:rgba(0,0,0,0.03); text-decoration:none; color:inherit; font-weight:600; transition: var(--transition);">
+                <a href="https://www.youtube.com/@Hxqe" target="_blank" rel="noopener" class="primary-btn">
                     🟥 YouTube
                 </a>
-                <a href="https://github.com/hoppepaul66-hue" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:10px; background:rgba(0,0,0,0.03); text-decoration:none; color:inherit; font-weight:600; transition: var(--transition);">
+                <a href="https://github.com/hoppepaul66-hue" target="_blank" rel="noopener" class="primary-btn">
                     🐙 GitHub
                 </a>
-                <a href="https://www.instagram.com/wasmachtpaull" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:10px; background:rgba(0,0,0,0.03); text-decoration:none; color:inherit; font-weight:600; transition: var(--transition);">
+                <a href="https://www.instagram.com/wasmachtpaull" target="_blank" rel="noopener" class="primary-btn">
                     📸 Instagram
                 </a>
-                <a href="https://open.spotify.com/user/31xd4elrpecth3ipfyo3icctny54" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; padding:10px 16px; border-radius:10px; background:rgba(0,0,0,0.03); text-decoration:none; color:inherit; font-weight:600; transition: var(--transition);">
+                <a href="https://open.spotify.com/user/31xd4elrpecth3ipfyo3icctny54" target="_blank" rel="noopener" class="primary-btn">
                     🎧 Spotify
                 </a>
             </div>
@@ -584,7 +659,51 @@
         </button>
     </div>
 
+    <!-- External Script for 3D Tilt Effect -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+
     <script>
+        // VanillaTilt Init (3D Hover Effect)
+        VanillaTilt.init(document.querySelectorAll(".card-section"), {
+            max: 2,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.05
+        });
+
+        // Scroll Progression Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (height > 0) ? (winScroll / height) * 100 : 0;
+            document.getElementById('scroll-progress').style.width = scrolled + '%';
+        });
+
+        // Typing Effect
+        const h1Text = `
+ __        ___ _ _ _                                           _ 
+ \\ \\      / (_) | | | _____  _ __ ___  _ __ ___   ___ _ __    | |
+  \\ \\ /\\ / /| | | | |/ / _ \\| '_ \` _ \\| '_ \` _ \\ / _ \\ '_ \\   | |
+   \\ V  V / | | | |   < (_) | | | | | | | | | | |  __/ | | |  |_|
+    \\_/\\_/  |_|_|_|_|\\_\\___/|_| |_| |_|_| |_| |_|\\___|_| |_|  (_)
+                                                                 `;
+        const typedTextSpan = document.querySelector('.typed-text');
+        if (typedTextSpan) {
+            let charIndex = 0;
+            // Entferne den ersten erzwungenen Zeilenumbruch aus der Vorlage für ein sauberes Layout
+            const textToType = h1Text.replace(/^[\r\n]+/, '');
+            
+            function typeWriter() {
+                if (charIndex < textToType.length) {
+                    typedTextSpan.textContent += textToType.charAt(charIndex);
+                    charIndex++;
+                    // Schneller typen wegen vieler Zeichen
+                    setTimeout(typeWriter, 5); 
+                }
+            }
+            setTimeout(typeWriter, 500);
+        }
+
         // Timer
         let sekunden = 0;
         const timerElement = document.getElementById('timer');
